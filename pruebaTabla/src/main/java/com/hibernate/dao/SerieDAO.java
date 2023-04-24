@@ -15,7 +15,7 @@ public class SerieDAO {
 	 * INSERCIÓN
 	 */
 	
-	public void insertCiudad(Serie s) {
+	public void insertSerie(Serie s) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
@@ -32,7 +32,7 @@ public class SerieDAO {
 	 * ACTUALIZACIÓN
 	 */
 	
-	public void updateCiudad(Serie s) {
+	public void updateSerie(Serie s) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
@@ -49,7 +49,7 @@ public class SerieDAO {
 	 * BORRADO
 	 */
 	
-	public void deleteCiudad(int id) {
+	public void deleteSerie(int id) {
 		Transaction transaction = null;
 		Serie s = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -68,7 +68,7 @@ public class SerieDAO {
 	 * SELECCIÓN SIMPLE
 	 */
 	
-	public Serie selectCiudadById(int id) {
+	public Serie selectSerieById(int id) {
 		Transaction transaction = null;
 		Serie s = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {

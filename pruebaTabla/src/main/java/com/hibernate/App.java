@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import java.awt.Font;
@@ -35,6 +36,13 @@ public class App {
 	private JTextField textFieldCap;
 	private JTable table;
 	private JTable table_1;
+	
+	void limpiarTexto() {
+		textFieldId.setText("");
+		textFieldNombre.setText("");
+		textFieldTemp.setText("");
+		textFieldCap.setText("");
+	}
 
 	/**
 	 * Launch the application.
@@ -113,16 +121,46 @@ public class App {
 		frmCrudSeries.getContentPane().add(textFieldCap);
 		
 		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Serie serie = new Serie(textFieldNombre.getText(), Integer.parseInt(textFieldTemp.getText()),
+						Integer.parseInt(textFieldCap.getText()));
+				serieDAO.insertSerie(serie);
+				JOptionPane.showMessageDialog(null, "Serie añadida");
+				limpiarTexto();
+			}
+		});
 		btnGuardar.setFont(new Font("Arial", Font.BOLD, 15));
 		btnGuardar.setBounds(72, 447, 161, 21);
 		frmCrudSeries.getContentPane().add(btnGuardar);
 		
 		JButton btnActualizar = new JButton("ACTUALIZAR");
+		btnActualizar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Serie serieActualizar = serieDAO.selectSerieById(Integer.parseInt(textFieldId.getText()));
+				serieActualizar.setNomserie(textFieldNombre.getText());
+				serieActualizar.setTemporadas(Integer.parseInt(textFieldTemp.getText()));
+				serieActualizar.setCapitulos(Integer.parseInt(textFieldCap.getText()));
+				serieDAO.updateSerie(serieActualizar);
+				JOptionPane.showMessageDialog(null, "Serie actualizada");
+				limpiarTexto();
+			}
+		});
 		btnActualizar.setFont(new Font("Arial", Font.BOLD, 15));
 		btnActualizar.setBounds(293, 448, 161, 21);
 		frmCrudSeries.getContentPane().add(btnActualizar);
 		
 		JButton btnBorrar = new JButton("BORRAR");
+		btnBorrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				serieDAO.deleteSerie(Integer.parseInt(textFieldId.getText()));
+				JOptionPane.showMessageDialog(null, "Serie borrada");
+				limpiarTexto();
+			}
+		});
 		btnBorrar.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBorrar.setBounds(529, 448, 161, 21);
 		frmCrudSeries.getContentPane().add(btnBorrar);
